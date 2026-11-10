@@ -3,7 +3,7 @@
 The live site is https://bevelhook.github.io and it is published from this repository. Any change you commit shows up on the site within a minute or two.
 
 ## Change text or prices
-1. Open https://github.com/Bevelhook/bevelhook.github.io/blob/main/index.html
+1. Open https://github.com/Bevelhook/bevelhook.github.io/blob/master/index.html
 2. Click the pencil icon (Edit this file).
 3. Press Ctrl+F (or Find on a phone browser) and search for the words you want to change, e.g. `8,500`.
 4. Change only the words between the tags, not the `<` `>` parts.
