@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3-6-9 toroidal structure</title>
+<script src="369/plotly.js"></script>
+<style>
+:root { --bg:#0b1020; --fg:#e8ecf4; --muted:#8b93a7; --gold:#e8b84a; --teal:#3ec7b4; --orange:#ff9f6b; }
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; background:var(--bg); color:var(--fg); font-family: system-ui, "DejaVu Sans", sans-serif; }
+header { padding: 24px 20px 8px; max-width: 1200px; margin: 0 auto; }
+header h1 { font-size: 28px; line-height: 1.25; margin: 0 0 8px; }
+header p { color: var(--muted); font-size: 16px; line-height: 1.45; margin: 0 0 12px; }
+.wisp-bar { position: sticky; top: 0; z-index: 50; background: var(--bg); padding: 8px 16px; border-bottom: 1px solid #2c3a5c; display: flex; align-items: center; gap: 12px; }
+#wisp-toggle { min-width: 44px; min-height: 44px; padding: 10px 18px; font-size: 16px; font-weight: 700; color: var(--bg); background: var(--gold); border: 2px solid var(--gold); border-radius: 8px; cursor: pointer; }
+#wisp-toggle[aria-pressed="true"] { background: var(--bg); color: var(--gold); }
+.wisp-bar details { margin: 0; flex: 1; }
+.wisp-bar details summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; font-size: 16px; padding: 6px 8px; list-style: none; color: var(--gold); }
+.wisp-bar details summary::-webkit-details-marker { display: none; }
+.wisp-bar details p { font-size: 15px; line-height: 1.45; color: var(--fg); max-width: 900px; padding: 0 8px 8px; }
+section { width: 100%; padding: 12px 16px 28px; border-top: 1px solid #2c3a5c; }
+section h2 { font-size: 22px; line-height: 1.3; margin: 8px 0 8px; }
+.tag { display:inline-flex; align-items:center; min-height:44px; padding: 8px 14px; border-radius: 8px; font-size: 16px; font-weight: 700; margin: 0 0 10px; border: 1px solid currentColor; }
+.tag.established { color: var(--teal); }
+.tag.interpretive { color: var(--orange); }
+.plot { width: 100%; height: 85vh; min-height: 500px; }
+.plot .plotly-graph-div, .plot .js-plotly-plot { width: 100% !important; height: 100% !important; }
+.plot.image { display:flex; align-items:center; justify-content:center; overflow:auto; }
+.plot.image img { max-width:100%; max-height:100%; width:auto; height:auto; object-fit:contain; }
+details { margin-top: 8px; }
+details summary { min-height: 44px; display:flex; align-items:center; cursor:pointer; font-size: 18px; padding: 10px 8px; list-style:none; color: var(--gold); }
+details summary::-webkit-details-marker { display:none; }
+details p { font-size: 16px; line-height: 1.5; color: var(--fg); max-width: 900px; padding: 0 8px 8px; }
+@media (max-width: 600px) {
+  header h1 { font-size: 22px; }
+  section { padding: 10px 10px 24px; }
+  .plot { height: 80vh; min-height: 500px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>3-6-9 toroidal structure</h1>
+  <p>Conceptual math visualization, not a physical model. Teal tags mark established results (digital roots, Shannon entropy, unitary algebra, Kaluza-Klein and T^2 cartoons, Bell/CHSH, the holographic principle and celestial holography as research programs, displacement and spin memory as predictions). Orange tags mark interpretive readings (1/9 poles, dimensional ladder, unchosen-branch wording, arithmetic/geometry comparison, and the 3-6-9 mapping onto holography).</p>
+</header>
+<div class="wisp-bar" id="wisp-bar"><button type="button" id="wisp-toggle" aria-pressed="false">Smoke wisps</button><details><summary>About the smoke-wisp overlay</summary><p>The Smoke wisps toggle overlays RK4-advected streamlines on the four torus-based 3D charts: the 3x3 tiling, the 3-6-9 flow torus, the T^2 compactification cartoon, and the CHSH correlator on the angle 2-torus. Non-torus charts (the Kaluza-Klein S^1 fibers, the celestial sphere, and all 2D images) have no overlay because the coded velocity field lives on a torus in (phi, theta). 16 seeds sit on the phi = 0 face at varied entry angles; each is integrated with RK4 for 400 steps at dt = 0.06. Color fades with computed cumulative arc length, gray to translucent white. Amber tint marks the interpretive 1/9 pole caps: a surface point is in the zone when |z_stand|/(R+r) >= 0.72, with z_stand = (R + r cos theta) cos phi (the standing-torus vertical coordinate). This is a coded geometric rule, not a physical region. psi is conserved along streamlines (max |psi-psi0| = 8.91e-10); RK4 vs dt/2 max end error = 8.12e-10.</p></details></div>
+<section>
+  <h2>3x3 toroidal grid</h2>
+  <p class="tag established">ESTABLISHED  ·  digital roots / modular arithmetic</p>
+  <div class="plot image"><img src="fig1_torus_grid.png" alt="3x3 toroidal grid"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Column sums are exactly 9, 3, 6 (total 18). Row sums 3, 12, 3 have digital root 3. If every row were exactly 3, rows would total 9 and columns 18, which cannot both be exact; both close on 9 because dr(18)=9.</p>
+  </details>
+</section>
+<section>
+  <h2>3x3 tiled on a torus (rotatable)</h2>
+  <p class="tag established">ESTABLISHED  ·  periodic identification</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="8dc2da55-5927-4810-b4fe-cc06e08fcbdc" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s1.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Nine cells colored to match the flat grid, with 3 toroidal and 3 poloidal ivory boundaries. Integers sit at cell centers, offset along the outward tube normal. Drag to rotate.</p>
+  </details>
+</section>
+<section>
+  <h2>Smoke-ring vortex (analogy)</h2>
+  <p class="tag interpretive">INTERPRETIVE  ·  analogy only</p>
+  <div class="plot image"><img src="fig1_smoke_ring.png" alt="Smoke-ring vortex (analogy)"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Schematic / illustrative: procedural streamlines on a torus, a visual analogy only.</p>
+  </details>
+</section>
+<section>
+  <h2>Uniform 3-qubit wave vs. collapsed peak</h2>
+  <p class="tag interpretive">INTERPRETIVE  ·  torus-boundary mirror (entropy is ESTABLISHED)</p>
+  <div class="plot image"><img src="fig2_superposition_collapse.png" alt="Uniform 3-qubit wave vs. collapsed peak"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Uniform superposition: S = 3.000 bits. Collapsed |000>: S = 0.000 bits. 'Total uncertainty and total certainty: same structure viewed from opposite sides' is interpretive.</p>
+  </details>
+</section>
+<section>
+  <h2>Bloch sphere</h2>
+  <p class="tag established">ESTABLISHED  ·  Bloch / CP^3 / Hopf</p>
+  <div class="plot image"><img src="fig2_bloch.png" alt="Bloch sphere"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>One qubit = S^2 (bold arrows to |0> and |+>). Two-qubit pure states = CP^3. Hopf fibration slices S^3 into tori. Mapping a '3+3 6D state' onto this is interpretive.</p>
+  </details>
+</section>
+<section>
+  <h2>Block-swap unitary</h2>
+  <p class="tag established">ESTABLISHED  ·  unitary algebra / entropy invariant</p>
+  <div class="plot image"><img src="fig3_block_swap.png" alt="Block-swap unitary"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>U[i^4, i]=1 equals kron(X, I_4) (True). ||U^dag U - I||_max = 0.0e+00 < 1e-10 (True). Uniform state stays uniform (S = 3.000 bits). Non-uniform complex psi_after = U psi: multiset and entropy (S = 2.6691) are unchanged. 'Unchosen branch persists but is unreachable from inside the chosen frame' is interpretive.</p>
+  </details>
+</section>
+<section>
+  <h2>3-6-9 circulating flow  ·  drag to reverse apparent sign</h2>
+  <p class="tag interpretive">INTERPRETIVE  ·  1/9 poles and 3-6-9 flow reading</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="ef3f598f-42f4-4286-b05f-89804eb54e58" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s2.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Schematic / illustrative. Poles 1 and 9 are labeled equal and opposite (interpretive). Arrowed helical flows for 3, 6, and 9. Dragging to the opposite side reverses the apparent circulation (projection, established as geometry). Gold ring: KK S^1 callout.</p>
+  </details>
+</section>
+<section>
+  <h2>Dimensional ladder</h2>
+  <p class="tag interpretive">INTERPRETIVE  ·  not standard physics</p>
+  <div class="plot image"><img src="fig4_ladder.png" alt="Dimensional ladder"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Schematic / illustrative. 4D = act of selecting; 5D (3+2) = branch persistence; 6D = 3+3 superposition. The user's interpretation, not a result of Kaluza-Klein or standard quantum theory.</p>
+  </details>
+</section>
+<section>
+  <h2>Kaluza-Klein fifth dimension (compactified circle)</h2>
+  <p class="tag established">ESTABLISHED  ·  Kaluza-Klein S^1 (schematic)</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="9ef2a2ed-ea30-4999-a2ea-35cf2629b8c9" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s3.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Schematic / illustrative. 4D spacetime drawn as a line, with a compactified circle S^1 attached at every sample point. Established physics framework, cartoon geometry only.</p>
+  </details>
+</section>
+<section>
+  <h2>String compactification on T^2</h2>
+  <p class="tag established">ESTABLISHED  ·  T^2 compactification (schematic)</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="d366a47c-2e11-438b-859d-56567d6bee89" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s4.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>A 2-torus with its two independent S^1 cycles. Established string-compactification cartoon. The comparison 'your torus closes arithmetic, theirs closes geometry' is interpretive.</p>
+  </details>
+</section>
+<section>
+  <h2>Bell / CHSH correlator and slice</h2>
+  <p class="tag established">ESTABLISHED  ·  Bell / CHSH, experimentally confirmed</p>
+  <div class="plot image"><img src="fig6_bell_chsh.png" alt="Bell / CHSH correlator and slice"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>E(a,b) is the singlet correlator Re <psi|A(a) tensor A(b)|psi> (agrees with -cos(a-b) to 5.7e-16). At the coded settings, S = -2.828427, |S| = 2.828 = 2*sqrt(2) vs. enumerated classical bound 2 (|E|<=1 would give 4). This is the one element here that predicts a measurable outcome.</p>
+  </details>
+</section>
+<section>
+  <h2>Singlet correlator E(a,b) colored on T^2</h2>
+  <p class="tag established">ESTABLISHED  ·  measurement-angle space is a torus</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="be310b63-f9b3-45f3-9035-3a17753ba146" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s5.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Because a and b are both 2pi-periodic, (a,b) literally lives on a 2-torus. Gold marks are the CHSH settings. Hopf fibration slices S^3 into tori (established). 4D Hilbert space is not claimed to decompose into the 3-6-9 tori beyond those facts.</p>
+  </details>
+</section>
+<section>
+  <h2>Digital roots and the doubling cycle</h2>
+  <p class="tag established">ESTABLISHED  ·  modular arithmetic</p>
+  <div class="plot image"><img src="fig7_digital_roots.png" alt="Digital roots and the doubling cycle"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>For n=1..1000, dr(3n) lands on 3, 6, or 9 with counts {3: 334, 6: 333, 9: 333}, matching the iterated digit sum. Multiplication by 3 cannot escape {3,6,9} (mod 9, 0 shown as 9). For k=0..100 the doubling cycle (1, 2, 4, 8, 7, 5) never touches 3, 6, or 9.</p>
+  </details>
+</section>
+<section>
+  <h2>Holographic boundary  ·  null rays on the celestial sphere</h2>
+  <p class="tag established">ESTABLISHED  ·  holographic principle / celestial holography (research programs)</p>
+  <div class="plot"><div style="height:800px; width:100%;">                            <div id="2b52d5b1-f865-4a29-ac6d-8c54a8a880f6" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script src="369/s6.js"></script>        </div></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Schematic / illustrative. Computed straight-line null rays from 4 interior sources solve |x0 + t d| = R_inf (R_inf = 1) and terminate on the celestial sphere. Hit points are colored by direction. Celestial holography encodes a 4D bulk (3 space + 1 time) on a 2D sphere at null infinity. Pinch or scroll-zoom; drag to rotate. The holographic principle and celestial holography are ESTABLISHED as research programs.</p>
+  </details>
+</section>
+<section>
+  <h2>Displacement memory on a detector ring</h2>
+  <p class="tag established">ESTABLISHED  ·  displacement / spin memory (predicted; not yet directly detected)</p>
+  <div class="plot image"><img src="fig8_memory.png" alt="Displacement memory on a detector ring"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Illustrative toy waveform h(u) = h_mem*(1+tanh(u/tau))/2 with h_mem = 0.18, tau = 1. h goes from 0 to 0.18; max |displacement| = 0.0738 (nonzero after the wave). Displacement memory = a permanent position shift. Spin memory = a relative time delay for counter-orbiting paths (Pasterski, Strominger, Zhiboedov 2015, arXiv:1502.06120) — not this shift. Both effects are established predictions, not yet directly detected. Mapping memory to an 'unchosen branch' is INTERPRETIVE.</p>
+  </details>
+</section>
+<section>
+  <h2>4D bulk to 2D sphere  beside  9 to 3</h2>
+  <p class="tag interpretive">INTERPRETIVE  ·  3-6-9 mapping  (holography programs are ESTABLISHED)</p>
+  <div class="plot image"><img src="fig8_mapping.png" alt="4D bulk to 2D sphere  beside  9 to 3"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>The 4->2 drop (3 space + 1 time onto a 2D celestial sphere) is the holographic idea, ESTABLISHED as a research program. The visual analogy to a 9->3 collapse is INTERPRETIVE: the grid's three row digital roots equal 3 and sum to 9; dr(9) = 9.</p>
+  </details>
+</section>
+<section>
+  <h2>Divergence-free torus velocity</h2>
+  <p class="tag established">ESTABLISHED  ·  vector calculus on the torus</p>
+  <div class="plot image"><img src="fig_divfree_flow.png" alt="Divergence-free torus velocity"></div>
+  <details>
+    <summary>Caption</summary>
+    <p>Stream function psi = a*theta + b*phi + c*sin(theta)*cos(phi) with a=1, b=0.7, c=0.45. v^phi = (1/sqrt g) dpsi/dtheta, v^theta = -(1/sqrt g) dpsi/dphi, sqrt g = r(R+r cos theta). Surface divergence vanishes analytically. Central finite differences on a 256 x 256 grid give max |div| = 6.81e-15.</p>
+  </details>
+</section>
+<script src="369/s7.js"></script>
+</body>
+</html>
